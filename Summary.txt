@@ -1,0 +1,4 @@
+总结：
+1、使用@AutoWired注解，不需要再在配置文件中配置需要注入的参数
+2、使用RestController声明Restful服务时需要作用类上面，如果写在接口上对于@PathVariable\@RequestParam等注解将无效，具体原因还未知，但对于
+方法上的注解如@RequestMapping还是有效的。还有作用在接口上需要单独在配置文件中声明bean，否在会找不到类

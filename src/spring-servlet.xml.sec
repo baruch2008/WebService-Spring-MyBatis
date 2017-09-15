@@ -3,6 +3,7 @@
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws"
 	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
     http://www.springframework.org/schema/context
@@ -10,7 +11,14 @@
     http://www.springframework.org/schema/aop 
     http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
     http://www.springframework.org/schema/tx 
-    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.baruch.*" />
+	<mvc:default-servlet-handler />
+	<mvc:annotation-driven />
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
@@ -39,5 +47,30 @@
 
 	<bean id="bookDao" class="com.baruch.dao.impl.BookDaoImpl">
 		<property name="sessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		id="internalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" /><!-- prefix -->
+		<property name="suffix" value=".jsp" /><!-- suffix -->
+	</bean>
+
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
 	</bean>
 </beans>

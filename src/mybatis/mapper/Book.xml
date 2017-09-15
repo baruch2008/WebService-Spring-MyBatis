@@ -15,4 +15,12 @@
 	<select id="getBooks" resultMap="resultListBook">
 	    select isbn, name, price from Book
 	</select>
+	
+	<select id="getBookByISBN" parameterType="string" resultType="Book">
+		select isbn, name, price from Book where isbn="${isbn}"
+	</select>
+	
+	<select id="getBookByName" parameterType="string" resultType="Book">
+		select isbn, name, price from Book where name="${name}"
+	</select>
 </mapper>

@@ -2,31 +2,49 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 	<!-- 注解扫描 -->
-	<context:component-scan base-package="com.baruch.service" />
+	<context:annotation-config />
+	<context:component-scan base-package="com.baruch.*" />
+	<mvc:default-servlet-handler />
 	<mvc:annotation-driven />
-
-	<bean id="bookService" class="com.baruch.service.impl.BookService">
-		<property name="bookDao" ref="bookDao" />
+<!-- 
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		id="internalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
 	</bean>
-	
+
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
 	<bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="order" value="1" />
-		<!-- 指定是否以format参数形式如get?format=json get?format=xml -->
 		<property name="favorParameter" value="true" />
-		<!-- 忽略请求头中的Accept 由于浏览器的Accept不同 一般默认设置为true -->
 		<property name="ignoreAcceptHeader" value="true" />
-		<!-- 默认response返回的contenttype -->
 		<property name="defaultContentType" value="text/html" />
-		<!-- 指定是否以扩展名形式返回数据如get.json get.xml 默认就是true -->
 		<property name="favorPathExtension" value="true" />
 		<property name="mediaTypes">
 			<map>
@@ -60,12 +78,8 @@
 							</property>
 						</bean>
 					</constructor-arg>
-
-					<!-- 也可以用XStream解析器 相对应的model类的annotation也要改：类名 @XStreamAlias("user")@ 
-						属性名@XStreamAsAttributeXStreamAlias("id") XStream有点问题 暂时未解决 <property name="marshaller"> 
-						<bean class="org.springframework.oxm.xstream.XStreamMarshaller"/> </property> -->
 				</bean>
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 </beans>

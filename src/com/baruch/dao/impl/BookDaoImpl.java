@@ -42,11 +42,33 @@ public class BookDaoImpl implements IBookDao {
 
 	@Override
 	public Book getBookByISBN(String isbn) {
+		SqlSession session = null;
+		try {
+			session = sessionFactory.openSession();
+
+			IBookDao bookDao = session.getMapper(IBookDao.class);
+			return bookDao.getBookByISBN(isbn);
+		} catch (Exception e) {
+			logger.error("Getting books failed.", e);
+		} finally {
+			DBOperationUtil.closeSession(session);
+		}
 		return null;
 	}
 
 	@Override
 	public Book getBookByName(String name) {
+		SqlSession session = null;
+		try {
+			session = sessionFactory.openSession();
+
+			IBookDao bookDao = session.getMapper(IBookDao.class);
+			return bookDao.getBookByName(name);
+		} catch (Exception e) {
+			logger.error("Getting books failed.", e);
+		} finally {
+			DBOperationUtil.closeSession(session);
+		}
 		return null;
 	}
 

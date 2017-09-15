@@ -108,6 +108,10 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:spring/DispatcherServlet-servlet.xml</param-value>
 		</init-param>
+		<!-- <init-param>配置此参数值后会出现原来能正常匹配的服务URL不能找到的问题
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+		</init-param> -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>

@@ -24,9 +24,23 @@ function getBooks() {
 	$.get(url, function(data, status) {
 		var tbody = $("table#bookTable tbody");
 		for(var i=0,len=data.length;i<len;i++) {
-			tbody.append("<tr><td>"+data[i].name+"</td><td>"+data[i].isbn+"</td><td>"+data[i].price+"</td></tr>");
+			tbody.append("<tr><td><a href=\"javascript:void(0)\" onclick=\"getBookByISBN(event)\">"+data[i].name+"</a></td><td>"+data[i].isbn+"</td><td>"+data[i].price+"</td></tr>");
 		}
 	});
+}
+
+function getBookByISBN(obj) {
+    var url="/WebService/cxf/book/"+$(obj.path[1]).next()[0].innerText;
+    $.get(url, function(data, status) {
+		alert(data.isbn);
+    });
+}
+
+function getBookByName(obj) {
+    var url="/WebService/cxf/book/getBooksByName?name="+$(obj.target)[0].innerText;
+    $.get(url, function(data, status) {
+		alert(data.isbn);
+    });
 }
 </script>
 
